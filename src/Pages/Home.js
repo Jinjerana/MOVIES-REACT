@@ -1,25 +1,35 @@
-import { useEffect } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { MoviesList } from 'components/MoviesList';
+// import { Link } from 'react-router-dom';
+import { getTrendingMovies } from 'services/API';
 
 const Home = () => {
-  //   useEffect(() => {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  // const BASE_URL = 'https://api.themoviedb.org/3/movie/11?api_key=30f74636e08937577c41f8000490a2f5';
+  useEffect(() => {
+    const trendingMovies = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const data = await getTrendingMovies();
+        setMovies(data.results);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    trendingMovies();
+  }, []);
 
-  // const axios = require('axios');
-
-  async function getUser() {
-    try {
-      const response = await axios.get(
-        'https://api.themoviedb.org/3/movie/11?api_key=30f74636e08937577c41f8000490a2f5'
-      );
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  //   }, []);
-  return <div>Home</div>;
+  return (
+    <div>
+      <h1>Movies</h1>
+      <MoviesList movies={movies} />
+    </div>
+  );
 };
 
 export default Home;

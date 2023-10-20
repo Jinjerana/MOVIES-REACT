@@ -60,19 +60,3 @@ export const getMovieReviews = async () => {
     throw new Error('Oops! Try again');
   }
 };
-
-// export async function getMovieById(searchImage, page = 1) {
-//   const parameteres = new URLSearchParams({
-//     key: '30f74636e08937577c41f8000490a2f5',
-//     q: searchImage,
-//     image_type: 'photo',
-//     orientation: 'horizontal',
-//     safesearch: 'true',
-//     page: `${page}`,
-//     per_page: 40,
-//   });
-
-//   const { data } = await axios.get(`${BASE_URL}?${parameteres}`);
-
-//   return data;
-// }

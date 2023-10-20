@@ -1,45 +1,55 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { getSearchMovies } from 'services/API';
+// import { MoviesList } from 'components/MoviesList';
 
 const Movies = () => {
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const response = await axios.get(
-          'https://api.themoviedb.org/3/movie/11?api_key=30f74636e08937577c41f8000490a2f5'
-        );
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    //HTTP-запрос//
-  }, []);
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  //   path="/movies/:movieId"
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get('query') ?? '';
+
+  useEffect(() => {
+    if (!query) return;
+
+    const searchMovies = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const data = await getSearchMovies();
+        setMovies(data.results);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    searchMovies();
+  }, [query]);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const value = e.target.query.value.toLowerCase();
+
+    if (value === '') {
+      setSearchParams({});
+      return;
+    }
+    setSearchParams({ query: value });
+  };
+
   return (
     <div>
-      {Movies.map(movie => {
-        return (
-          <Link key={movie} to={`${movie}`}>
-            {movie}
-          </Link>
-        );
-      })}
+      <form onSubmit={handleSubmit}>
+        <input type="text/" name="query" />
+        <button type="submit">Search</button>
+      </form>
     </div>
   );
 };
-
-// state, isLoading, error
-
-{
-  /* <li>
-    <Link to="cast">Cast</Link>
-</li>
-<li>
-    <Link to="reviews">Reviews</Link>
-</li> */
-}
 
 export default Movies;
