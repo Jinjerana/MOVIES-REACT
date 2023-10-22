@@ -1,5 +1,3 @@
-// const getMovieById = () => {};
-
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3';
@@ -17,10 +15,10 @@ export const getTrendingMovies = async () => {
   }
 };
 
-export const getSearchMovies = async () => {
+export const getSearchMovies = async movieId => {
   try {
     const response = await axios.get(
-      `/search/movie?api_key=${API_KEY}&include_adult=false&language=en-US&page=1`
+      `/search/${movieId}?api_key=${API_KEY}&include_adult=false&language=en-US&page=1`
     );
     return response.data;
   } catch (error) {
@@ -28,10 +26,10 @@ export const getSearchMovies = async () => {
   }
 };
 
-export const getMovieDetails = async () => {
+export const getMovieDetails = async movieId => {
   try {
     const response = await axios.get(
-      `/movie/movie_id?api_key=${API_KEY}&language=en-US`
+      `/movie/${movieId}?api_key=${API_KEY}&language=en-US`
     );
     return response.data;
   } catch (error) {
@@ -39,10 +37,10 @@ export const getMovieDetails = async () => {
   }
 };
 
-export const getMovieCredits = async () => {
+export const getMovieCredits = async movieId => {
   try {
     const response = await axios.get(
-      `/movie/movie_id/credits?api_key=${API_KEY}&language=en-US`
+      `/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`
     );
     return response.data;
   } catch (error) {
@@ -50,10 +48,10 @@ export const getMovieCredits = async () => {
   }
 };
 
-export const getMovieReviews = async () => {
+export const getMovieReviews = async movieId => {
   try {
     const response = await axios.get(
-      `/movie/movie_id/reviews?api_key=${API_KEY}&language=en-US`
+      `/movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US`
     );
     return response.data;
   } catch (error) {

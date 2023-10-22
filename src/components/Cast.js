@@ -3,13 +3,13 @@ import { getMovieCredits } from 'services/API';
 import { useEffect, useState } from 'react';
 
 export const Cast = () => {
-  const { movie_id } = useParams();
+  const { movieID } = useParams();
   const [actors, setActors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!movie_id) {
+    if (!movieID) {
       return;
     }
 
@@ -17,7 +17,7 @@ export const Cast = () => {
       try {
         setLoading(true);
         setError(false);
-        const { cast } = await getMovieCredits(movie_id);
+        const { cast } = await getMovieCredits(movieID);
         setActors(cast);
       } catch (error) {
         setError(true);
@@ -26,11 +26,11 @@ export const Cast = () => {
       }
     };
     getActorsList();
-  }, [movie_id]);
+  }, [movieID]);
 
   return (
     <div>
-      Cast:{' '}
+      Cast:{''}
       {actors.map(({ profile_path, name, character, id }) => {
         return (
           <div key={id}>

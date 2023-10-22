@@ -3,21 +3,19 @@ import { getMovieReviews } from 'services/API';
 import { useEffect, useState } from 'react';
 
 export const Reviews = () => {
-  const { movie_id } = useParams();
+  const { movieID } = useParams();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!movie_id) {
-      return;
-    }
+    if (!movieID) return;
 
     const reviewList = async () => {
+      setLoading(true);
+      setError(false);
       try {
-        setLoading(true);
-        setError(false);
-        const { results } = await getMovieReviews(movie_id);
+        const { results } = await getMovieReviews(movieID);
         setReviews(results);
       } catch (error) {
         setError(true);
@@ -27,23 +25,18 @@ export const Reviews = () => {
     };
 
     reviewList();
-  }, [movie_id]);
+  }, [movieID]);
 
   return (
     <div>
-      {reviews.length > 0 ? (
-        <div>
-          {reviews.map(({ author, content, id }) => {
-            return (
-              <li key={id}>
-                <div>
-                  <h2>{author}</h2>
-                  <p>{content}</p>
-                </div>
-              </li>
-            );
-          })}
-        </div>
+      <h1>Reviews</h1>
+      {reviews && reviews.length > 0 ? (
+        reviews.map(({ author, content, id }) => (
+          <div key={id}>
+            <h2>{author}</h2>
+            <p>{content}</p>
+          </div>
+        ))
       ) : (
         <p>No reviews</p>
       )}
