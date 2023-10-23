@@ -1,6 +1,6 @@
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Loader } from 'components/Loader';
+// import { Loader } from 'components/Loader';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { getSearchMovies } from 'services/API';
 
