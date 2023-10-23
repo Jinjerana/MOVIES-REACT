@@ -1,7 +1,7 @@
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 // import { Loader } from 'components/Loader';
-import { Report } from 'notiflix/build/notiflix-report-aio';
+// import { Report } from 'notiflix/build/notiflix-report-aio';
 import { getSearchMovies } from 'services/API';
 
 const MovieDetails = () => {
@@ -21,7 +21,7 @@ const MovieDetails = () => {
         setMovieInfo(data);
       } catch (error) {
         setError(true);
-        Report.warning('You enter invalid Input. Try again.');
+        // Report.warning('You enter invalid Input. Try again.');
       } finally {
         setLoading(false);
       }
@@ -32,9 +32,11 @@ const MovieDetails = () => {
   return (
     <div>
       {/* {loading && <Loader />} */}
-      {error &&
-        !loading &&
-        Report.warning('You enter invalid Input. Try again.')}
+      {
+        error && !loading
+        //  &&
+        // Report.warning('You enter invalid Input. Try again.')
+      }
       {movieInfo && <div movieInfo={movieInfo} />}
       <ul>
         <li>

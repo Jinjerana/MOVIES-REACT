@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getSearchMovies } from 'services/API';
 // import { Loader } from 'components/Loader';
-import { Report } from 'notiflix/build/notiflix-report-aio';
+// import { Report } from 'notiflix/build/notiflix-report-aio';
 import { MoviesList } from 'components/MoviesList';
 
 const Movies = () => {
@@ -47,9 +47,11 @@ const Movies = () => {
   return (
     <div>
       {/* {loading && <Loader />} */}
-      {error &&
-        !loading &&
-        Report.warning('You enter invalid Input. Try again.')}
+      {
+        error && !loading
+        // &&
+        // Report.warning('You enter invalid Input. Try again.')
+      }
       <form onSubmit={handleSubmit}>
         <input type="text/" name="query" />
         <button type="submit">Search</button>

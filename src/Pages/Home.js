@@ -3,7 +3,7 @@ import { MoviesList } from 'components/MoviesList';
 // import { Link } from 'react-router-dom';
 import { getTrendingMovies } from 'services/API';
 // import { Loader } from 'components/Loader';
-import { Report } from 'notiflix/build/notiflix-report-aio';
+// import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -29,9 +29,11 @@ const Home = () => {
   return (
     <div>
       {/* {loading && <Loader />} */}
-      {error &&
-        !loading &&
-        Report.warning('You enter invalid Input. Try again.')}
+      {
+        error && !loading
+        //  &&
+        // Report.warning('You enter invalid Input. Try again.')
+      }
       <h1>Movies</h1>
       <MoviesList movies={movies} />
     </div>
