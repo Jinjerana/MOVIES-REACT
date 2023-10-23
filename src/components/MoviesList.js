@@ -17,15 +17,4 @@ export const MoviesList = ({ movies }) => {
       })}
     </div>
   );
-
-  // const products = getProducts();
-  // useEffect;
-  // get - запрос;
-  // state;
-  // State - props;
-  // return (
-  //   <main>
-  //     <MoviesList movies={movies} />
-  //   </main>
-  // );
 };

@@ -1,37 +1,41 @@
-// import { useEffect } from 'react';
-// import { getMovieById } from API
-
 import { Link, Outlet, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Loader } from 'components/Loader';
+import { Report } from 'notiflix/build/notiflix-report-aio';
+import { getSearchMovies } from 'services/API';
 
-// export const MovieDetails = () => {
-//   const { id } = useParams();
-//   const movie = getMovieById(id);
-//   useEffect;
-//   get;
-
-//   return (
-//     <main>
-//       <img />
-//       <div>
-//         <h2>
-//           Movie - {movie.name} - {id}
-//         </h2>
-//         <p>About movie</p>
-//       </div>
-//     </main>
-//   );
-// };
 const MovieDetails = () => {
   const { movieId } = useParams();
+  const [loading, setLoading] = useState(false);
+  const [movieInfo, setMovieInfo] = useState(null);
+  const [error, setError] = useState(false);
 
-  //   useEffect(() => {
-  //     HTTP запрос
-  //   }, [])
-  //   записиваем в state, рендерим разметку
+  useEffect(() => {
+    if (!movieId) return;
+
+    const getMovieInfoById = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const data = await getSearchMovies(movieId);
+        setMovieInfo(data);
+      } catch (error) {
+        setError(true);
+        Report.warning('You enter invalid Input. Try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    getMovieInfoById();
+  }, [movieId]);
 
   return (
-    <>
-      <h1>MovieDetails: {movieId}</h1>
+    <div>
+      {/* {loading && <Loader />} */}
+      {error &&
+        !loading &&
+        Report.warning('You enter invalid Input. Try again.')}
+      {movieInfo && <div movieInfo={movieInfo} />}
       <ul>
         <li>
           <Link to="cast">Cast</Link>
@@ -41,7 +45,7 @@ const MovieDetails = () => {
         </li>
       </ul>
       <Outlet />
-    </>
+    </div>
   );
 };
 

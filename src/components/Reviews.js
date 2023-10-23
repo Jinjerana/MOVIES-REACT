@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from 'services/API';
 import { useEffect, useState } from 'react';
+import { Loader } from 'components/Loader';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 
 export const Reviews = () => {
   const { movieID } = useParams();
@@ -29,6 +31,10 @@ export const Reviews = () => {
 
   return (
     <div>
+      {loading && <Loader />}
+      {error &&
+        !loading &&
+        Report.warning('You enter invalid Input. Try again.')}
       <h1>Reviews</h1>
       {reviews && reviews.length > 0 ? (
         reviews.map(({ author, content, id }) => (

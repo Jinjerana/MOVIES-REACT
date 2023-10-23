@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getSearchMovies } from 'services/API';
-// import { MoviesList } from 'components/MoviesList';
+import { Loader } from 'components/Loader';
+import { Report } from 'notiflix/build/notiflix-report-aio';
+import { MoviesList } from 'components/MoviesList';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -44,10 +46,16 @@ const Movies = () => {
 
   return (
     <div>
+      {/* {loading && <Loader />} */}
+      {error &&
+        !loading &&
+        Report.warning('You enter invalid Input. Try again.')}
       <form onSubmit={handleSubmit}>
         <input type="text/" name="query" />
         <button type="submit">Search</button>
       </form>
+      <h1>Movies</h1>
+      <MoviesList movies={movies} />
     </div>
   );
 };
