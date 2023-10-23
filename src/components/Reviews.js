@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from 'services/API';
 import { useEffect, useState } from 'react';
-import { Loader } from 'components/Loader';
+// import { Loader } from 'components/Loader';
 // import { Report } from 'notiflix/build/notiflix-report-aio';
 
 export const Reviews = () => {
@@ -31,7 +31,7 @@ export const Reviews = () => {
 
   return (
     <div>
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       {
         error && !loading
         //  &&

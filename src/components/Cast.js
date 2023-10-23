@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { getMovieCredits } from 'services/API';
 import { useEffect, useState } from 'react';
-import { Loader } from 'components/Loader';
+// import { Loader } from 'components/Loader';
 // import { Report } from 'notiflix/build/notiflix-report-aio';
 
 export const Cast = () => {
@@ -32,7 +32,7 @@ export const Cast = () => {
 
   return (
     <div>
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       {
         error && !loading
         // &&
