@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { getMovieCredits } from 'services/API';
 import { useEffect, useState } from 'react';
 import { Loader } from 'components/Loader';
-import { Report } from 'notiflix/build/notiflix-report-aio';
+// import { Report } from 'notiflix/build/notiflix-report-aio';
 
 export const Cast = () => {
   const { movieID } = useParams();
@@ -33,9 +33,11 @@ export const Cast = () => {
   return (
     <div>
       {loading && <Loader />}
-      {error &&
-        !loading &&
-        Report.warning('You enter invalid Input. Try again.')}
+      {
+        error && !loading
+        // &&
+        // Report.warning('You enter invalid Input. Try again.')
+      }
       <div>
         Cast:{''}
         {actors.map(({ profile_path, name, character, id }) => {
