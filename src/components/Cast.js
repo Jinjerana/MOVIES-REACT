@@ -49,7 +49,7 @@ export const Cast = () => {
                 />
               </div>
               <div>
-                <p>{name}</p>
+                <div>{name}</div>
                 <p>{character}</p>
               </div>
             </div>
