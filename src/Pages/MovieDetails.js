@@ -1,43 +1,24 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-// import { Loader } from 'components/Loader';
-// import { Report } from 'notiflix/build/notiflix-report-aio';
-import { getSearchMovies } from 'services/API';
+import { MovieInfo } from 'components/MovieInfo';
+import { useFetchMovieInfo } from 'hooks';
+import { Suspense, useRef } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const MovieDetails = () => {
-  const { movieId } = useParams();
-  const [loading, setLoading] = useState(false);
-  const [movieInfo, setMovieInfo] = useState(null);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (!movieId) return;
-
-    const getMovieInfoById = async () => {
-      try {
-        setLoading(true);
-        setError(false);
-        const data = await getSearchMovies(movieId);
-        setMovieInfo(data);
-      } catch (error) {
-        setError(true);
-        // Report.warning('You enter invalid Input. Try again.');
-      } finally {
-        setLoading(false);
-      }
-    };
-    getMovieInfoById();
-  }, [movieId]);
+  const { movie, isLoading, error } = useFetchMovieInfo();
+  const location = useLocation();
+  const goBackLink = useRef(location?.state?.from ?? '/');
 
   return (
-    <div>
-      {/* {loading && <Loader />} */}
-      {
-        error && !loading
-        //  &&
-        // Report.warning('You enter invalid Input. Try again.')
-      }
-      {movieInfo && <div movieInfo={movieInfo} />}
+    <>
+      <Link to={goBackLink.current}>
+        <button type="button">Go back</button>
+      </Link>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Something went wrong...</p>}
+      {movie && <MovieInfo movie={movie} />}
+
+      <h1>Additional Info</h1>
+
       <ul>
         <li>
           <Link to="cast">Cast</Link>
@@ -46,8 +27,10 @@ const MovieDetails = () => {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
-      <Outlet />
-    </div>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Outlet />
+      </Suspense>
+    </>
   );
 };
 

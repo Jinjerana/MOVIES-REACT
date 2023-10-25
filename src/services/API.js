@@ -6,32 +6,32 @@ const API_KEY = '30f74636e08937577c41f8000490a2f5';
 
 export const getTrendingMovies = async () => {
   try {
-    const response = await axios.get(
+    const { data } = await axios.get(
       `/trending/movie/day?api_key=${API_KEY}&language=en-US`
     );
-    return response.data;
+    return data.results;
   } catch (error) {
     throw new Error('Oops! Try more');
   }
 };
 
-export const getSearchMovies = async movieId => {
+export const getMovieDetails = async movieId => {
   try {
-    const response = await axios.get(
-      `/search/${movieId}?api_key=${API_KEY}&include_adult=false&language=en-US&page=1`
+    const { data } = await axios.get(
+      `/movie/${movieId}?api_key=${API_KEY}&language=en-US`
     );
-    return response.data;
+    return data;
   } catch (error) {
     throw new Error('Oops! Try again');
   }
 };
 
-export const getMovieDetails = async movieId => {
+export const getSearchMovies = async query => {
   try {
-    const response = await axios.get(
-      `/movie/${movieId}?api_key=${API_KEY}&language=en-US`
+    const {data} = await axios.get(
+      `/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${query}&include_adult=true`
     );
-    return response.data;
+    return data.results;
   } catch (error) {
     throw new Error('Oops! Try again');
   }
@@ -39,10 +39,10 @@ export const getMovieDetails = async movieId => {
 
 export const getMovieCredits = async movieId => {
   try {
-    const response = await axios.get(
+    const { data } = await axios.get(
       `/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`
     );
-    return response.data;
+    return data.cast;
   } catch (error) {
     throw new Error('Oops! Try again');
   }
@@ -50,10 +50,10 @@ export const getMovieCredits = async movieId => {
 
 export const getMovieReviews = async movieId => {
   try {
-    const response = await axios.get(
+    const { data } = await axios.get(
       `/movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US`
     );
-    return response.data;
+    return data.results;
   } catch (error) {
     throw new Error('Oops! Try again');
   }

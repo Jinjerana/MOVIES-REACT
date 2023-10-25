@@ -1,0 +1,31 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getMovieReviews } from 'services/API';
+
+export const useFetchReviews = () => {
+  const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { movieId } = useParams();
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const data = await getMovieReviews(movieId);
+        setReviews(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [movieId]);
+
+  return {
+    reviews,
+    isLoading,
+    error,
+  };
+};
