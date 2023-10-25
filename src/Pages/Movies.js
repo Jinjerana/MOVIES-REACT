@@ -1,7 +1,3 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { getSearchMovies } from 'services/API';
-
 import { MoviesList } from 'components/MoviesList';
 import { useFetchByQuery } from 'hooks/useFetchByQuery';
 
