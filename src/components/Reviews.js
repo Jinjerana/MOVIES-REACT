@@ -13,7 +13,7 @@ const styles = {
   },
 };
 
-export const Reviews = () => {
+const Reviews = () => {
   const { reviews, isLoading, error } = useFetchReviews();
 
   return (
@@ -34,3 +34,5 @@ export const Reviews = () => {
     </>
   );
 };
+
+export default Reviews;

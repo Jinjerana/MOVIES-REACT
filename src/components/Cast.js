@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-export const Cast = () => {
+const Cast = () => {
   const { cast, isLoading, error } = useFetchCast();
   return (
     <>
@@ -52,3 +52,5 @@ export const Cast = () => {
     </>
   );
 };
+
+export default Cast;
