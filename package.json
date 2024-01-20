@@ -2,7 +2,7 @@
   "name": "react-homework-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jinjerana.github.io/goit-react-hw-05-movies/",
+  "homepage": "https://jinjerana.github.io/MOVIES-REACT/",
   "dependencies": {
     "react-loader-spinner": "^5.1.5",
     "@testing-library/jest-dom": "^5.16.3",
